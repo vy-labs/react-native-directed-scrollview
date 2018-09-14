@@ -15,6 +15,7 @@ class DirectedScrollViewManager extends ViewGroupManager<DirectedScrollView> {
 
   public static final int COMMAND_SCROLL_TO = 1;
   public static final int COMMAND_ZOOM_TO_START = 2;
+  public static final int COMMAND_UPDATE_CONTENT_OFFSET = 3;
 
   @Override
   public String getName() {
@@ -30,7 +31,8 @@ class DirectedScrollViewManager extends ViewGroupManager<DirectedScrollView> {
   public Map<String,Integer> getCommandsMap() {
     return MapBuilder.of(
       "scrollTo", COMMAND_SCROLL_TO,
-      "zoomToStart", COMMAND_ZOOM_TO_START
+      "zoomToStart", COMMAND_ZOOM_TO_START,
+      "updateContentOffsetIfNeeded", COMMAND_UPDATE_CONTENT_OFFSET
     );
   }
 
@@ -48,6 +50,8 @@ class DirectedScrollViewManager extends ViewGroupManager<DirectedScrollView> {
         break;
       case COMMAND_ZOOM_TO_START:
         view.scrollTo(0.0, 0.0, args.getBoolean(0));
+        break;
+      case COMMAND_UPDATE_CONTENT_OFFSET:
         break;
       default:
         throw new IllegalArgumentException(String.format("Unsupported command %d received by %s.", commandType, getClass().getSimpleName()));
